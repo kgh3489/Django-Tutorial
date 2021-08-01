@@ -1,2 +1,2 @@
-# mysite_django
-##### test1
+# Django Tutorial
+Django tutorial page(mysite)
