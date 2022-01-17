@@ -1,21 +1,21 @@
-
+<!-- 
 <h1>{{ question.question_text }}</h1>
 <ul>
-{% for choice in question.choice_set.all %} <!--question을 외래키로 사용하는 choice들을 가지고 옴(models.py)-->
+{% for choice in question.choice_set.all %} 
     <li>{{ choice.choice_text }}</li>
 {% endfor %}
-</ul>
+</ul> -->
 
 <!-- 클래스 기반 뷰 -->
-<!-- <form action="{% url 'polls:vote' question.id %}" method="post">
-    {% csrf_token %}
-    <fieldset>
-        <legend><h1>{{ question.question_text }}</h1></legend>
-        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-        {% for choice in question.choice_set.all %}
-            <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
-            <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
-        {% endfor %}
-    </fieldset>
-    <input type="submit" value="Vote">
-    </form> -->
+<h1>{{ question.question_text }}</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'polls:vote' question.id %}" method="post">
+    {% csrf_token %} <!-- 사이트 간 위조 요청을 막기위함 -->
+{% for choice in question.choice_set.all %}
+    <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+    <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
+{% endfor %}
+<input type="submit" value="Vote">
+</form>
