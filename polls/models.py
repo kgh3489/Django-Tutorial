@@ -11,7 +11,9 @@ class Question(models.Model):
         return self.question_text #cmd에서 문자로 출력
 
     def was_published_recently(self):
-        return self.pub_date >= timezone.now() - datetime.timedelta(days=1) #현재 시간 - 하루 전 시간
+        now = timezone.now()
+        return now - datetime.timedelta(days=1) <= self.pub_date <= now
+        #return self.pub_date >= timezone.now() - datetime.timedelta(days=1) #현재 시간 - 하루 전 시간
 
 class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
